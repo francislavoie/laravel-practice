@@ -26,4 +26,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the user's address.
+     */
+    public function address()
+    {
+        return $this->hasOne('App\Models\UserAddress');
+    }
+
+    /**
+     * Get the user's role.
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Models\UserRole', 'user_roles_id');
+    }
 }

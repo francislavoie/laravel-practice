@@ -17,7 +17,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
         'username' => $faker->username,
         'email' => $faker->unique()->safeEmail,
-        'user_roles_id' => 3,
+        'user_roles_id' => App\Models\UserRole::PUBLIC_USER,
         'password' => \Hash::make('secret'),
         'remember_token' => str_random(10),
     ];
