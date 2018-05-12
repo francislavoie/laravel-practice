@@ -28,6 +28,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'user_roles_id' => 'integer',
+    ];
+
+    /**
      * Get the user's address.
      */
     public function address()
@@ -41,5 +50,20 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Models\UserRole', 'user_roles_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->user_roles_id === UserRole::ADMIN;
+    }
+
+    public function isPublisher()
+    {
+        return $this->user_roles_id === UserRole::PUBLISHER;
+    }
+
+    public function isPublicUser()
+    {
+        return $this->user_roles_id === UserRole::PUBLIC_USER;
     }
 }

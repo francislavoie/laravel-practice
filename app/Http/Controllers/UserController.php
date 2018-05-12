@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+use App\Models\User;
+
+class UserController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Show the list of users
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('home');
+        return view('users.index', [
+        	'users' => User::all()
+        ]);
     }
 }
