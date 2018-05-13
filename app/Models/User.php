@@ -44,7 +44,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function($user) {
-            $user->address->delete();
+            if($user->address) $user->address->delete();
         });
     }
 
