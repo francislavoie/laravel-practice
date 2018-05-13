@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Users</div>
+                <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,11 +14,7 @@
                         </div>
                     @endif
 
-                    <ul>
-                        @foreach ($users as $user)
-                            <li>{{ $user->username }} | {{ $user->email }}</li>
-                        @endforeach
-                    </ul>
+                    You are logged in as an admin!
                 </div>
             </div>
         </div>

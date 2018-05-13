@@ -21,13 +21,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -45,5 +38,15 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * Where to redirect users after resetting their password.
+     *
+     * @var string
+     */
+    protected function redirectTo()
+    {
+        return \Auth::user()->isAdmin() ? '/admin/home' : '/home';
     }
 }

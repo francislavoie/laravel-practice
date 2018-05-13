@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+
+use Hash;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +38,27 @@ class User extends Authenticatable
     protected $casts = [
         'user_roles_id' => 'integer',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user) {
+            $user->address->delete();
+        });
+    }
+
+    /**
+     * Rehash password
+     * 
+     * @param $input
+     */
+    public function setPasswordAttribute($input)
+    {
+        if ($input) {
+            $this->attributes['password'] = Hash::needsRehash($input) ? Hash::make($input) : $input;
+        }
+    }
 
     /**
      * Get the user's address.
