@@ -66,7 +66,7 @@ class UserController extends Controller
             $user->address->update(collect($request->all())->only('address')->get('address'));
         }
 
-        return redirect('/admin/users')
+        return redirect(\Auth::user()->isAdmin() ? '/admin/users' : '/home')
             ->with('status', "Successfully updated user $user->username.")
             ->with('status-mode', 'success');
     }

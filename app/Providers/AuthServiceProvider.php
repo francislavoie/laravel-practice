@@ -48,14 +48,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user_create', function (User $user) {
             return $user->isAdmin();
         });
-        Gate::define('user_view', function (User $user, $them) {
+        Gate::define('user_view', function (User $user, User $them) {
             return true;
             // return $user->isAdmin() || $them->id == $user->id;
         });
-        Gate::define('user_edit', function (User $user, $them) {
+        Gate::define('user_edit', function (User $user, User $them) {
             return $user->isAdmin() || $them->id == $user->id;
         });
-        Gate::define('user_delete', function (User $user, $them) {
+        Gate::define('user_delete', function (User $user, User $them) {
             return $user->isAdmin();
         });
 
