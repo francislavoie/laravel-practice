@@ -69,6 +69,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's posts.
+     */
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post')->orderBy('published_at', 'desc');
+    }
+
+    /**
+     * Get the user's posts.
+     */
+    public function published_posts()
+    {
+        return $this->hasMany('App\Models\Post')->where('published', true)->orderBy('published_at', 'desc');
+    }
+
+    /**
      * Get the user's role.
      */
     public function role()

@@ -37,6 +37,10 @@
                         @can('user_management_access')
                             <li><a class="nav-link" href="{{ url('/admin/users') }}">{{ __('Users') }}</a></li>
                         @endcan
+
+                        @can('post_access')
+                            <li><a class="nav-link" href="{{ url('/posts') }}">{{ __('Posts') }}</a></li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -52,6 +56,10 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/users/view/' . Auth::user()->id) }}">
+                                        {{ __('Profile') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

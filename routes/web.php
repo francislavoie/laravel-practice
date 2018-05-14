@@ -19,14 +19,21 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::get('/users/view/{user}', 'Admin\UserController@view');
+
+    Route::get('/posts', 'PostController@index');
+    Route::get('/posts/create', 'PostController@createView');
+    Route::post('/posts/create', 'PostController@create');
+    Route::get('/posts/view/{post}', 'PostController@view');
+    Route::get('/posts/edit/{post}', 'PostController@editView');
+    Route::post('/posts/edit/{post}', 'PostController@edit');
 });
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
     Route::get('/home', 'HomeController@index');
     
     Route::get('/users', 'UserController@index');
-    Route::get('/users/create', 'UserController@createView');
-    Route::post('/users/create', 'UserController@create');
     Route::get('/users/view/{user}', 'UserController@view');
     Route::get('/users/edit/{user}', 'UserController@editView');
     Route::post('/users/edit/{user}', 'UserController@edit');

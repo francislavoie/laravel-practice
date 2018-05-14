@@ -38,6 +38,30 @@
                         <dt class="col-md-4">Postal Code</dt><dd class="col-md-8">{{ $user->address->postal_code ?? "" }}</dd>
                     </dl>
 
+                    <h2>Posts</h2>
+
+                    @forelse($user->posts as $post)
+                        @if ($user->id != Auth::user()->id && ! $post->published)
+                            @continue
+                        @endif
+
+                        <a href="/posts/view/{{ $post->id }}"
+                            class="list-group-item list-group-item-action mb-3">
+                            <div class="lead">{{ $post->title }}</div>
+                            <div class="text-muted pt-2">
+                                {{ $post->published_at->diffForHumans() }} —
+                                @if ($post->published)
+                                    <span class="text-primary">Published</span>
+                                @else
+                                    <span class="text-danger">Not Published</span>
+                                @endif
+                            </div>
+                        </a>
+                    @empty
+                        <p>No published posts</p>
+                    @endforelse
+
+
                     <button onclick="window.history.back();" class="btn btn-outline-primary">Back</button>
 
                 </div>

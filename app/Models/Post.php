@@ -32,6 +32,15 @@ class Post extends Model
         'published_at',
         'deleted_at',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'published' => 'boolean',
+    ];
     
     public function user()
     {
