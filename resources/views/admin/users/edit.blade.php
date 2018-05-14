@@ -43,19 +43,29 @@
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ $user->email ?? "" }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select class="form-control" id="role" name="user_roles_id">
-                                @foreach (\App\Models\UserRole::all() as $role)
-                                    <option 
-                                        value="{{ $role->id }}"
-                                        {{ $user->user_roles_id == $role->id ? 'selected' : '' }}
-                                        >
-                                        {{ $role->label }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        {{-- Only admins can edit role --}}
+                        @if (Auth::user()->isAdmin())
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select class="form-control" id="role" name="user_roles_id">
+                                    @foreach (\App\Models\UserRole::all() as $role)
+                                        <option 
+                                            value="{{ $role->id }}"
+                                            {{ $user->user_roles_id == $role->id ? 'selected' : '' }}
+                                            >
+                                            {{ $role->label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <input type="hidden" name="user_roles_id" value="{{ $user->user_roles_id }}" />
+                                <input type="text" class="form-control" value="{{ $user->role->label }}" readonly />
+                            </div>
+                        @endif
+                        
 
                         <h2>Address</h2>
 
