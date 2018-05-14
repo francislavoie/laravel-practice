@@ -106,4 +106,9 @@ class User extends Authenticatable
     {
         return $this->user_roles_id === UserRole::PUBLIC_USER;
     }
+
+    public function canPublish()
+    {
+        return $this->isAdmin() || $this->isPublisher();
+    }
 }
